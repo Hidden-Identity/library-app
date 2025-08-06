@@ -1,0 +1,21 @@
+{
+  "library": "Knjižnica",
+  "home": "Početna",
+  "search_books": "Pretraži knjige",
+  "sign_in": "Prijava",
+  "sign_up": "Registracija",
+  "find_next_adventure": "Pronađite svoju sljedeću avanturu",
+  "what_would_you_read": "Što biste željeli iduće pročitati?",
+  "explore_top_books": "Istražite najbolje knjige",
+  "find_your_next_book": "Pronađite svoju iduću knjigu zbog koje ćete reći \"Ostao/la sam predugo budan/na čitajući\".",
+  "book": "Knjiga",
+  "reserve": "Rezerviraj",
+  "view_more": "Prikaži više",
+  "hero_1_title": "Što ste posljednje čitali?",
+  "hero_1_paragraph": "Podijelite s nama što ste nedavno čitali! Bilo da je riječ o fikciji, činjenicama ili novom favoritu, vaše mišljenje je važno i pomaže nam izgraditi bolju knjižnicu za sve.",
+  "hero_2_title": "Naša kolekcija se stalno mijenja!",
+  "hero_2_paragraph": "Predani smo izgradnji knjižnice koja se razvija zajedno s našim čitateljima. Svakog tjedna dodajemo pažljivo odabrane knjige kako bismo osigurali da naša kolekcija odražava promjenjive potrebe i interese naše zajednice, tako da uvijek postoji nešto novo za otkriti!",
+  "cant_find_desired": "Ne možete pronaći ono što tražite?",
+  "contact_library_admin": "Ako ne možete pronaći ono što tražite, pošaljite osobnu poruku našoj upravi knjižnice.",
+  "library_app": "Aplikacija \"Knjžnica\", d.o.o."
+}

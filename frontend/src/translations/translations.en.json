@@ -1,0 +1,21 @@
+{
+  "library": "Library",
+  "home": "Home",
+  "search_books": "Search Books",
+  "sign_in": "Sign in",
+  "sign_up": "Sign up",
+  "find_next_adventure": "Find your next adventure",
+  "what_would_you_read": "What would you like to read next?",
+  "explore_top_books": "Explore top books",
+  "find_your_next_book": "Find your next \"I stayed up too late reading\" book.",
+  "book": "Book",
+  "reserve": "Reserve",
+  "view_more": "View more",
+  "hero_1_title": "What have you been reading?",
+  "hero_1_paragraph": "Share your recent reads with us! Whether it's fiction, fact, or a new favorite, your feedback matters and helps us build a better library for everyone.",
+  "hero_2_title": "Our collection is always changing!",
+  "hero_2_paragraph": "We're committed to building a library that evolves with our readers. Every week, we add thoughtfully chosen books to ensure that our collection reflects the changing needs and interests of our community so there's always something new worth discovering!",
+  "cant_find_desired": "Can't find what you are looking for?",
+  "contact_library_admin": "If you cannot find what you are looking for, send our library admin's a personal message.",
+  "library_app": "Library App, Inc"
+}
