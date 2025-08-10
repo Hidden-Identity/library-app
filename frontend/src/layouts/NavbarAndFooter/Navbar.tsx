@@ -9,6 +9,7 @@ import { FC } from 'react';
 import { Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { languages } from '../../translations/i18n';
+import { NavLink } from 'react-router-dom';
 
 const AppNavbar: FC = () => {
   const { i18n, t } = useTranslation();
@@ -21,8 +22,8 @@ const AppNavbar: FC = () => {
         <Navbar.Toggle aria-controls="navbarNavDropdown" />
         <Navbar.Collapse id="navbarNavDropdown">
           <Nav>
-            <Nav.Link href="#">{t('home')}</Nav.Link>
-            <Nav.Link href="#">{t('search_books')}</Nav.Link>
+            <Nav.Link as={NavLink} to="/home">{t('home')}</Nav.Link>
+            <Nav.Link as={NavLink} to="/search">{t('search_books')}</Nav.Link>
           </Nav>
           <Nav className="ms-auto">
             <Nav.Item className="m-1">

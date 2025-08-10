@@ -6,6 +6,7 @@
 import { FC } from 'react';
 import { Container, Row, Col, Nav } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
+import { Link } from 'react-router-dom';
 
 const Footer: FC = () => {
   const { t } = useTranslation();
@@ -19,12 +20,12 @@ const Footer: FC = () => {
         <Col xs={6}>
           <Nav className="justify-content-end">
             <Nav.Item>
-              <Nav.Link href="#" className="px-2 text-white">
+              <Nav.Link as={Link as any} to="/home" className="px-2 text-white">
                 {t('home')}
               </Nav.Link>
             </Nav.Item>
             <Nav.Item>
-              <Nav.Link href="#" className="px-2 text-white">
+              <Nav.Link as={Link as any} to="/search" className="px-2 text-white">
                 {t('search_books')}
               </Nav.Link>
             </Nav.Item>

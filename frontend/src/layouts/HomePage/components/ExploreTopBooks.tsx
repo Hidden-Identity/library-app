@@ -6,6 +6,7 @@
 import { FC } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 const ExploreTopBooks: FC = () => {
   const { t } = useTranslation();
@@ -17,7 +18,7 @@ const ExploreTopBooks: FC = () => {
           <Col className="text-center">
             <h1 className="display-5 fw-bold">{t('find_next_adventure')}</h1>
             <p className="col-md-8 fs-4 mx-auto">{t('what_would_you_read')}</p>
-            <Button variant="primary" size="lg" className="main-color text-white" href="#">
+            <Button as={Link as any} variant="primary" size="lg" className="main-color text-white" to="/search">
               {t('explore_top_books')}
             </Button>
           </Col>

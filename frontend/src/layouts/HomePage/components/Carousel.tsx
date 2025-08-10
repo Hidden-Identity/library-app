@@ -9,6 +9,7 @@ import { Carousel as BootstrapCarousel, Button, Container, Row, Spinner } from "
 import { ReturnBook } from "./ReturnBook";
 import { chunk } from "lodash";
 import { useFetchBooks } from "../../Utils/useFetchBooks";
+import { Link } from "react-router-dom";
 
 const Carousel: FC = () => {
   const { t } = useTranslation();
@@ -43,7 +44,7 @@ const Carousel: FC = () => {
         <ReturnBook book={books[0]} key={books[0].id} />
       </Row>
       <div className="homepage-carousel-title mt-4 text-center">
-        <Button variant="outline-secondary" size="lg" href="#">
+        <Button as={Link as any} variant="outline-secondary" size="lg" to="/search">
           {t('view_more')}
         </Button>
       </div>
