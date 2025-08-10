@@ -3,6 +3,8 @@
  * @date 09/08/2025
  */
 
+import { HalResource } from "hal-types";
+
 interface IBookModel {
   id: number;
   title: string;
@@ -14,4 +16,25 @@ interface IBookModel {
   img?: string;
 }
 
-export default IBookModel;
+interface IBookWithLinks extends IBookModel {
+  _links: {
+    self: { href: string };
+    book: { href: string };
+  };
+}
+
+interface PageMetadata {
+  size: number;
+  totalElements: number;
+  totalPages: number;
+  number: number;
+}
+
+type BooksResponse = HalResource<{
+  _embedded: {
+    books: IBookWithLinks[];
+  };
+  page: PageMetadata;
+}>;
+
+export {type IBookModel, type BooksResponse};

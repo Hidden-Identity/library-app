@@ -15,6 +15,7 @@
     "@types/react": "^19.1.9",
     "@types/react-dom": "^19.1.7",
     "bootstrap": "^5.3.7",
+    "hal-types": "^2.0.0",
     "i18next": "^25.3.2",
     "i18next-browser-languagedetector": "^8.2.0",
     "lodash": "^4.17.21",

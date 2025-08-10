@@ -17,5 +17,17 @@
   "hero_2_paragraph": "Predani smo izgradnji knjižnice koja se razvija zajedno s našim čitateljima. Svakog tjedna dodajemo pažljivo odabrane knjige kako bismo osigurali da naša kolekcija odražava promjenjive potrebe i interese naše zajednice, tako da uvijek postoji nešto novo za otkriti!",
   "cant_find_desired": "Ne možete pronaći ono što tražite?",
   "contact_library_admin": "Ako ne možete pronaći ono što tražite, pošaljite osobnu poruku našoj upravi knjižnice.",
-  "library_app": "Aplikacija \"Knjžnica\", d.o.o."
+  "library_app": "Aplikacija \"Knjžnica\", d.o.o.",
+  "search": "Pretraži",
+  "category": "Kategorija",
+  "number_of_results": "Broj rezultata",
+  "showing": "Prikazuje se",
+  "out_of": "od ukupno",
+  "items": "zapisa",
+  "view_details": "Prikaži detalje",
+  "all": "Sve",
+  "fiction": "Fikcija",
+  "biography": "Biografija",
+  "science": "Znanost",
+  "comics": "Stripovi"
 }

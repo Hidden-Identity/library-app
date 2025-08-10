@@ -17,5 +17,17 @@
   "hero_2_paragraph": "We're committed to building a library that evolves with our readers. Every week, we add thoughtfully chosen books to ensure that our collection reflects the changing needs and interests of our community so there's always something new worth discovering!",
   "cant_find_desired": "Can't find what you are looking for?",
   "contact_library_admin": "If you cannot find what you are looking for, send our library admin's a personal message.",
-  "library_app": "Library App, Inc"
+  "library_app": "Library App, Inc",
+  "search": "Search",
+  "category": "Category",
+  "number_of_results": "Number of results",
+  "showing": "Showing",
+  "out_of": "out of",
+  "items": "items",
+  "view_details": "View Details",
+  "all": "All",
+  "fiction": "Fiction",
+  "biography": "Biography",
+  "science": "Science",
+  "comics": "Comics"
 }

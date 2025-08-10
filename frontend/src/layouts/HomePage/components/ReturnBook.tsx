@@ -7,10 +7,10 @@ import { FC } from "react";
 import bookImg from '../../../Images/BooksImages/book-1.png';
 import { Button, Col } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
-import BookModel from "../../../models/BookModel";
+import { IBookModel } from "../../../models/BookModel";
 
 interface IProps {
-  book: BookModel
+  book: IBookModel
 }
 
 const ReturnBook: FC<IProps> = ({ book }) => {
