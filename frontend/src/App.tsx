@@ -2,7 +2,7 @@ import { FC } from 'react';
 import './App.css';
 import { HomePage } from './layouts/HomePage/';
 import { Navbar, Footer } from "./layouts/NavbarAndFooter";
-import SearchBooksPage from './layouts/SearchBooksPage/SearchBooksPage';
+import { SearchBooksPage } from './layouts/SearchBooksPage';
 import { Redirect, Route, Switch } from 'react-router-dom';
 
 const App: FC = () => (
