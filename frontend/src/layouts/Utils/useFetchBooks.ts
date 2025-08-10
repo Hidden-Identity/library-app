@@ -21,6 +21,8 @@ interface IReturn {
    booksPerPage: number;
    totalAmountOfBooks: number;
    totalPages: number;
+   setSearch: Dispatch<SetStateAction<string>>
+   searchHandler: () => void;
 }
 
 const useFetchBooks = ({
@@ -35,13 +37,21 @@ const useFetchBooks = ({
    const [booksPerPage] = useState(5);
    const [totalAmountOfBooks, setTotalAmountOfBooks] = useState(0);
    const [totalPages, setTotalPages] = useState(0);
+   const [search, setSearch] = useState('');
+   const [searchUrl, setSearchUrl] = useState('');
 
    useEffect(() => {
       const fetchBooks = async () => {
          const baseUrl = "http://localhost:8080/api/books";
-         const url = usePagination
+         let url = '';
+
+         if (searchUrl === '') {
+            url = usePagination
             ? `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`
             : `${baseUrl}?page=${page}&size=${size}`;
+         } else {
+            url = baseUrl + searchUrl;
+         }
 
          const response = await fetch(url);
 
@@ -82,9 +92,17 @@ const useFetchBooks = ({
       });
 
       window.scrollTo(0,0);
-   }, [booksPerPage, currentPage, page, size, usePagination]);
+   }, [booksPerPage, currentPage, page, searchUrl, size, usePagination]);
 
    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
+
+   const searchHandler = () => {
+      if (search === '') {
+         setSearchUrl('');
+      } else {
+         setSearchUrl(`/search/findByTitleContaining?title=${search}&page=0&size=${booksPerPage}`);
+      }
+   }
 
    return {
       books,
@@ -94,7 +112,9 @@ const useFetchBooks = ({
       paginate,
       booksPerPage,
       totalAmountOfBooks,
-      totalPages
+      totalPages,
+      setSearch,
+      searchHandler
    };
 };
 
