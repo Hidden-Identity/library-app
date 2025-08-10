@@ -53,7 +53,8 @@ const useFetchBooks = ({
             ? `${baseUrl}?page=${currentPage - 1}&size=${booksPerPage}`
             : `${baseUrl}?page=${page}&size=${size}`;
          } else {
-            url = baseUrl + searchUrl;
+            let searchWithPage = searchUrl.replace('<pageNumber>', `${currentPage - 1}`)
+            url = baseUrl + searchWithPage;
          }
 
          const response = await fetch(url);
@@ -100,20 +101,24 @@ const useFetchBooks = ({
    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
    const searchHandler = () => {
+      setCurrentPage(1);
+
       if (search === '') {
          setSearchUrl('');
       } else {
-         setSearchUrl(`/search/findByTitleContaining?title=${search}&page=0&size=${booksPerPage}`);
+         setSearchUrl(`/search/findByTitleContaining?title=${search}&page=<pageNumber>&size=${booksPerPage}`);
       }
+      setCategorySelection('all_categories');
    };
 
    const categoryField = (value: string) => {
+      setCurrentPage(1);
       if (Object.values(Category).map(v => v.toLowerCase()).includes(value.toLowerCase() as Category)) {
          setCategorySelection(value.toLowerCase());
-         setSearchUrl(`/search/findByCategory?category=${value}&page=0&size=${booksPerPage}`)
+         setSearchUrl(`/search/findByCategory?category=${value}&page=<pageNumber>&size=${booksPerPage}`)
       } else {
          setCategorySelection('all_categories')
-         setSearchUrl(`?page=0&size=${booksPerPage}`)
+         setSearchUrl(`?page=<pageNumber>&size=${booksPerPage}`)
       }
    };
 
