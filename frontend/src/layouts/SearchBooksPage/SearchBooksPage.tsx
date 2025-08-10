@@ -9,6 +9,7 @@ import { Button, Col, Container, Dropdown, Form, Row, Spinner } from "react-boot
 import { SearchBook } from "./components/SearchBook";
 import { useTranslation } from "react-i18next";
 import { Pagination } from "../Utils/Pagination";
+import { Category } from "../../models/BookModel";
 
 const SearchBooksPage: FC = () => {
    const { t } = useTranslation();
@@ -23,7 +24,9 @@ const SearchBooksPage: FC = () => {
       totalAmountOfBooks,
       totalPages,
       searchHandler,
-      setSearch
+      setSearch,
+      categorySelection,
+      categoryField
    } = useFetchBooks({ usePagination: true });
 
    const indexOfLastBook = currentPage * booksPerPage;
@@ -64,14 +67,14 @@ const SearchBooksPage: FC = () => {
             <Col md={4}>
                <Dropdown>
                   <Dropdown.Toggle variant="secondary" id="dropdownMenuButton1">
-                     {t('category')}
+                     {t(`${categorySelection}`)}
                   </Dropdown.Toggle>
                   <Dropdown.Menu>
-                     <Dropdown.Item href="#">{t('all')}</Dropdown.Item>
-                     <Dropdown.Item href="#">{t('fiction')}</Dropdown.Item>
-                     <Dropdown.Item href="#">{t('biography')}</Dropdown.Item>
-                     <Dropdown.Item href="#">{t('science')}</Dropdown.Item>
-                     <Dropdown.Item href="#">{t('comics')}</Dropdown.Item>
+                     <Dropdown.Item onClick={() => categoryField(t('all_categories'))}>{t('all_categories')}</Dropdown.Item>
+                     <Dropdown.Item onClick={() => categoryField(Category.FICTION)}>{t('fiction')}</Dropdown.Item>
+                     <Dropdown.Item onClick={() => categoryField(Category.BIOGRAPHY)}>{t('biography')}</Dropdown.Item>
+                     <Dropdown.Item onClick={() => categoryField(Category.SCIENCE)}>{t('science')}</Dropdown.Item>
+                     <Dropdown.Item onClick={() => categoryField(Category.COMICS)}>{t('comics')}</Dropdown.Item>
                   </Dropdown.Menu>
                </Dropdown>
             </Col>

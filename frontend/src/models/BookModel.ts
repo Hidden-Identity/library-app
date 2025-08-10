@@ -5,6 +5,13 @@
 
 import { HalResource } from "hal-types";
 
+enum Category {
+  FICTION = 'fiction',
+  BIOGRAPHY = 'biography',
+  SCIENCE = 'science',
+  COMICS = 'comics'
+}
+
 interface IBookModel {
   id: number;
   title: string;
@@ -37,4 +44,4 @@ type BooksResponse = HalResource<{
   page: PageMetadata;
 }>;
 
-export {type IBookModel, type BooksResponse};
+export {type IBookModel, type BooksResponse, Category};

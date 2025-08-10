@@ -4,7 +4,7 @@
  */
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import { IBookModel, BooksResponse } from "../../models/BookModel";
+import { IBookModel, BooksResponse, Category } from "../../models/BookModel";
 
 interface IProps {
    page?: number;
@@ -23,6 +23,8 @@ interface IReturn {
    totalPages: number;
    setSearch: Dispatch<SetStateAction<string>>
    searchHandler: () => void;
+   categorySelection: string,
+   categoryField: (value: string) => void;
 }
 
 const useFetchBooks = ({
@@ -39,6 +41,7 @@ const useFetchBooks = ({
    const [totalPages, setTotalPages] = useState(0);
    const [search, setSearch] = useState('');
    const [searchUrl, setSearchUrl] = useState('');
+   const [categorySelection, setCategorySelection] = useState('all_categories');
 
    useEffect(() => {
       const fetchBooks = async () => {
@@ -102,7 +105,17 @@ const useFetchBooks = ({
       } else {
          setSearchUrl(`/search/findByTitleContaining?title=${search}&page=0&size=${booksPerPage}`);
       }
-   }
+   };
+
+   const categoryField = (value: string) => {
+      if (Object.values(Category).map(v => v.toLowerCase()).includes(value.toLowerCase() as Category)) {
+         setCategorySelection(value.toLowerCase());
+         setSearchUrl(`/search/findByCategory?category=${value}&page=0&size=${booksPerPage}`)
+      } else {
+         setCategorySelection('all_categories')
+         setSearchUrl(`?page=0&size=${booksPerPage}`)
+      }
+   };
 
    return {
       books,
@@ -114,7 +127,9 @@ const useFetchBooks = ({
       totalAmountOfBooks,
       totalPages,
       setSearch,
-      searchHandler
+      searchHandler,
+      categorySelection,
+      categoryField
    };
 };
 
