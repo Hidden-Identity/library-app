@@ -8,6 +8,7 @@ import bookImg from '../../../Images/BooksImages/book-1.png';
 import { IBookModel } from "../../../models/BookModel";
 import { useTranslation } from "react-i18next";
 import { Button, Card, Col, Image, Row } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 interface IProps {
    book: IBookModel
@@ -36,7 +37,7 @@ const SearchBook: FC<IProps> = ({ book }) => {
                </Card.Body>
             </Col>
             <Col md={4} className="d-flex justify-content-center align-items-center">
-               <Button className="text-white" href="#">
+               <Button as={Link as any} className="text-white" to={`/checkout/${book.id}`}>
                   {t('view_details')}
                </Button>
             </Col>
