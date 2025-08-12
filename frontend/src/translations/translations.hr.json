@@ -30,5 +30,11 @@
   "biography": "Biografija",
   "science": "Znanost",
   "comics": "Stripovi",
-  "library_services": "Usluge knjižnice"
+  "library_services": "Usluge knjižnice",
+  "books_checked_out": "posuđenih knjiga",
+  "available": "dostupno",
+  "wait_list": "Na listi čekanja",
+  "copies": "primjeraka",
+  "number_can_change": "Ovaj broj se može mijenjati dok se narudžba ne dovrši.",
+  "sign_in_to_review": "Prijavite se kako biste mogli ostaviti recenziju."
 }

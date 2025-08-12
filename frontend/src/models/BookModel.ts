@@ -30,7 +30,7 @@ interface IBookWithLinksResponse extends IBookModel {
    };
 }
 
-interface PageMetadata {
+interface IPageMetadata {
    size: number;
    totalElements: number;
    totalPages: number;
@@ -41,7 +41,7 @@ type BooksResponse = HalResource<{
    _embedded: {
       books: IBookWithLinksResponse[];
    };
-   page: PageMetadata;
+   page: IPageMetadata;
 }>;
 
 export {

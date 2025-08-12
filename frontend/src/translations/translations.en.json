@@ -30,5 +30,11 @@
   "biography": "Biography",
   "science": "Science",
   "comics": "Comics",
-  "library_services": "Library Services"
+  "library_services": "Library Services",
+  "books_checked_out": "books checked out",
+  "available": "available",
+  "wait_list": "Wait List",
+  "copies": "copies",
+  "number_can_change": "This number can change until placing order has been completed.",
+  "sign_in_to_review": "Sign in to be able to leave a review."
 }

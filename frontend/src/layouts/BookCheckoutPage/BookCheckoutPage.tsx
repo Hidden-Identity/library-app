@@ -5,13 +5,12 @@
 
 import { FC } from "react"
 import bookImg from '../../Images/BooksImages/book-1.png';
-import { useTranslation } from "react-i18next"
 import { useFetchBooks } from "../Utils/useFetchBooks";
 import { Col, Container, Image, Row, Spinner } from "react-bootstrap";
+import { StarsReview } from "../Utils/StarsReview";
+import { CheckoutAndReviewBox } from "./CheckoutAndReviewBox";
 
 const BookCheckoutPage: FC = () => {
-   const { t } = useTranslation();
-
    const { books, isLoading, httpError } = useFetchBooks({ fetchOne: true });
    const book = books[0];
 
@@ -39,7 +38,9 @@ const BookCheckoutPage: FC = () => {
                <h2>{book?.title}</h2>
                <h5 className="text-primary">{book?.author}</h5>
                <p className="lead">{book?.description}</p>
+               <StarsReview rating={4.5} size={32}/>
             </Container>
+         <CheckoutAndReviewBox book={book}/>
          </Row>
          <hr />
       </Container>
