@@ -3,7 +3,7 @@
  * @date 04/08/2025
  */
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Carousel as BootstrapCarousel, Button, Container, Row, Spinner } from "react-bootstrap";
 import { ReturnBook } from "./ReturnBook";
@@ -14,7 +14,8 @@ import { Link } from "react-router-dom";
 const Carousel: FC = () => {
   const { t } = useTranslation();
 
-  const { books, isLoading, httpError } = useFetchBooks({});
+  const [httpError, setHttpError] = useState(null);
+  const { books, isLoading } = useFetchBooks({setHttpError});
 
   if (isLoading || httpError) {
     return (

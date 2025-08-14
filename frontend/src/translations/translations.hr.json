@@ -36,5 +36,8 @@
   "wait_list": "Na listi čekanja",
   "copies": "primjeraka",
   "number_can_change": "Ovaj broj se može mijenjati dok se narudžba ne dovrši.",
-  "sign_in_to_review": "Prijavite se kako biste mogli ostaviti recenziju."
+  "sign_in_to_review": "Prijavite se kako biste mogli ostaviti recenziju.",
+  "latest_reviews" : "Najnovije recenzije",
+  "read_all_reviews" : "Pročitajte sve recenzije",
+  "no_reviews_for_book" : "Trenutno nema recenzija za ovu knjigu"
 }

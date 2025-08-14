@@ -3,7 +3,7 @@
  * @date 09/08/2025
  */
 
-import { FC } from "react"
+import { FC, useState } from "react"
 import { useFetchBooks } from "../Utils/useFetchBooks";
 import { Button, Col, Container, Dropdown, Form, Row, Spinner } from "react-bootstrap";
 import { SearchBook } from "./components/SearchBook";
@@ -14,10 +14,10 @@ import { Category } from "../../models/BookModel";
 const SearchBooksPage: FC = () => {
    const { t } = useTranslation();
 
+   const [httpError, setHttpError] = useState(null);
    const {
       books,
       isLoading,
-      httpError,
       currentPage,
       paginate,
       booksPerPage,
@@ -27,7 +27,7 @@ const SearchBooksPage: FC = () => {
       setSearch,
       categorySelection,
       categoryField
-   } = useFetchBooks({ usePagination: true });
+   } = useFetchBooks({setHttpError, usePagination: true });
 
    const indexOfLastBook = currentPage * booksPerPage;
    const indexOfFirstBook = indexOfLastBook - booksPerPage;

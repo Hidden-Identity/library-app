@@ -4,6 +4,7 @@
  */
 
 import { HalResource } from "hal-types";
+import { IPageMetadata } from "./PageMetadata";
 
 enum Category {
    FICTION = "fiction",
@@ -28,13 +29,6 @@ interface IBookWithLinksResponse extends IBookModel {
       self: { href: string };
       book: { href: string };
    };
-}
-
-interface IPageMetadata {
-   size: number;
-   totalElements: number;
-   totalPages: number;
-   number: number;
 }
 
 type BooksResponse = HalResource<{

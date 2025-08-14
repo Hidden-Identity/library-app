@@ -12,6 +12,7 @@ import {
 } from "../../models/BookModel";
 
 interface IProps {
+   setHttpError: Dispatch<SetStateAction<any>>;
    page?: number;
    size?: number;
    usePagination?: boolean;
@@ -20,8 +21,8 @@ interface IProps {
 
 interface IReturn {
    books: IBookModel[];
+   bookId: string;
    isLoading: boolean;
-   httpError: any;
    currentPage: number;
    paginate: (pageNumber: number) => void;
    booksPerPage: number;
@@ -34,6 +35,7 @@ interface IReturn {
 }
 
 const useFetchBooks = ({
+   setHttpError,
    page = 0,
    size = 9,
    usePagination = false,
@@ -41,7 +43,6 @@ const useFetchBooks = ({
 }: IProps): IReturn => {
    const [books, setBooks] = useState<IBookModel[]>([]);
    const [isLoading, setIsLoading] = useState(true);
-   const [httpError, setHttpError] = useState(null);
    const [currentPage, setCurrentPage] = useState(1);
    const [booksPerPage] = useState(5);
    const [totalAmountOfBooks, setTotalAmountOfBooks] = useState(0);
@@ -50,13 +51,14 @@ const useFetchBooks = ({
    const [searchUrl, setSearchUrl] = useState("");
    const [categorySelection, setCategorySelection] = useState("all_categories");
 
+   const bookId = (window.location.pathname).split("/")[2];
+
    useEffect(() => {
       const fetchBooks = async () => {
          const baseUrl = "http://localhost:8080/api/books";
          let url = "";
 
          if (fetchOne) {
-            const bookId = window.location.pathname.split("/")[2];
             url = baseUrl + `/${bookId}`;
          } else {
             if (searchUrl === "") {
@@ -117,7 +119,7 @@ const useFetchBooks = ({
       });
 
       window.scrollTo(0, 0);
-   }, [booksPerPage, currentPage, fetchOne, page, searchUrl, size, usePagination]);
+   }, [bookId, booksPerPage, currentPage, fetchOne, page, searchUrl, setHttpError, size, usePagination]);
 
    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -153,8 +155,8 @@ const useFetchBooks = ({
 
    return {
       books,
+      bookId,
       isLoading,
-      httpError,
       currentPage,
       paginate,
       booksPerPage,
