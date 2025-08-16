@@ -16,7 +16,7 @@ const BookCheckoutPage: FC = () => {
    const [httpError, setHttpError] = useState(null);
    const { bookId, books, isLoading } = useFetchBooks({ setHttpError, fetchOne: true });
    const book = books[0];
-   const {reviews, totalStars, isLoadingReview} = useFetchReviews({bookId, setHttpError});
+   const { reviews, totalStars, isLoadingReview } = useFetchReviews({ bookId, setHttpError });
 
    if (isLoading || httpError) {
       return (
@@ -42,12 +42,12 @@ const BookCheckoutPage: FC = () => {
                <h2>{book?.title}</h2>
                <h5 className="text-primary">{book?.author}</h5>
                <p className="lead">{book?.description}</p>
-               <StarsReview rating={totalStars} size={32}/>
+               <StarsReview rating={totalStars} size={32} />
             </Container>
-         <CheckoutAndReviewBox book={book}/>
+            <CheckoutAndReviewBox book={book} />
          </Row>
          <hr />
-         <LatestReviews reviews={reviews} bookId={book?.id}/>
+         <LatestReviews reviews={reviews} bookId={book?.id} />
       </Container>
    )
 }

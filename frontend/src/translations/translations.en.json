@@ -37,7 +37,8 @@
   "copies": "copies",
   "number_can_change": "This number can change until placing order has been completed.",
   "sign_in_to_review": "Sign in to be able to leave a review.",
-  "latest_reviews" : "Latest Reviews",
-  "read_all_reviews" : "Read all reviews",
-  "no_reviews_for_book" : "There are currently no reviews for this book"
+  "latest_reviews": "Latest Reviews",
+  "read_all_reviews": "Read all reviews",
+  "no_reviews_for_book": "There are currently no reviews for this book",
+  "sign_out": "Sign out"
 }

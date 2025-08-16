@@ -5,9 +5,12 @@ import { Navbar, Footer } from "./layouts/NavbarAndFooter";
 import { SearchBooksPage } from './layouts/SearchBooksPage';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { BookCheckoutPage } from './layouts/BookCheckoutPage';
+import { Auth0ProviderWithHistory } from './layouts/Utils/authHelpers';
+import { LoginRedirect } from './layouts/Utils/LoginRedirect';
 
 const App: FC = () => (
    <div className='d-flex flex-column min-vh-100'>
+      <Auth0ProviderWithHistory>
       <Navbar />
       <div className='flex-grow-1'>
          <Switch>
@@ -23,9 +26,11 @@ const App: FC = () => (
             <Route path='/checkout/:bookId'>
                <BookCheckoutPage />
             </Route>
+            <Route path='/login' component={LoginRedirect} />
          </Switch>
       </div>
       <Footer />
+      </Auth0ProviderWithHistory>
    </div>
 );
 

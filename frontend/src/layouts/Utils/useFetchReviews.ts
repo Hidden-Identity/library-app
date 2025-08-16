@@ -5,7 +5,6 @@
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IReviewModel, ReviewsResponse } from "../../models/ReviewModel";
-import { IBookModel } from "../../models/BookModel";
 
 interface IProps {
    bookId: string;

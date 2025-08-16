@@ -6,13 +6,32 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLanguage } from '@fortawesome/free-solid-svg-icons';
 import { FC } from 'react';
-import { Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
+import { Button, Container, Nav, NavDropdown, Navbar, Spinner } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { languages } from '../../translations/i18n';
 import { NavLink } from 'react-router-dom';
+import { useRoles } from '../Utils/useRoles';
 
 const AppNavbar: FC = () => {
   const { i18n, t } = useTranslation();
+  const {
+    roles,
+    loading,
+    isAuthenticated,
+    handleLogin,
+    handleLogout
+  } = useRoles();
+
+  const authAction = isAuthenticated ? handleLogout : handleLogin;
+  const authText = t(isAuthenticated ? 'sign_out' : 'sign_in');
+
+  if (loading) {
+    return (
+      <Container className="d-flex justify-content-center align-items-center">
+        <Spinner className="m-5 primary" />
+      </Container>
+    );
+  }
 
   return (
     <Navbar sticky="top" expand="lg" variant="dark" className="main-color py-3">
@@ -27,7 +46,7 @@ const AppNavbar: FC = () => {
           </Nav>
           <Nav className="ms-auto">
             <Nav.Item className="m-1">
-              <Button variant="outline-light" href="#">{t('sign_in')}</Button>
+              <Button variant="outline-light" onClick={authAction}>{authText}</Button>
             </Nav.Item>
             <NavDropdown
               title={<FontAwesomeIcon icon={faLanguage} size='lg' />}

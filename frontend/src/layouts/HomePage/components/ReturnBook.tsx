@@ -8,6 +8,7 @@ import bookImg from '../../../Images/BooksImages/book-1.png';
 import { Button, Col } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import { IBookModel } from "../../../models/BookModel";
+import { Link } from "react-router-dom";
 
 interface IProps {
   book: IBookModel
@@ -21,7 +22,7 @@ const ReturnBook: FC<IProps> = ({ book }) => {
       <img src={book?.img ? book.img : bookImg} width="151" height="233" alt="book" />
       <h6 className="mt-2">{book.title}</h6>
       <p>{book?.author ?? 'N/A'}</p>
-      <Button variant="primary" href="#" className="text-white">
+      <Button as={Link as any} variant="primary" className="text-white" to={`checkout/${book?.id}`}>
         {t('reserve')}
       </Button>
     </Col>
