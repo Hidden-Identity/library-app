@@ -40,5 +40,8 @@
   "latest_reviews": "Najnovije recenzije",
   "read_all_reviews": "Pročitajte sve recenzije",
   "no_reviews_for_book": "Trenutno nema recenzija za ovu knjigu",
-  "sign_out": "Odjava"
+  "sign_out": "Odjava",
+  "checkout": "Posudi",
+  "book_checked_out": "Knjiga je posuđena. Uživajte!",
+  "too_many_books": "Previše knjiga je posuđeno."
 }

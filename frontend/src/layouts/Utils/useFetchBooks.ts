@@ -10,6 +10,7 @@ import {
    Category,
    IBookWithLinksResponse,
 } from "../../models/BookModel";
+import { useAuth0 } from "@auth0/auth0-react";
 
 interface IProps {
    setHttpError: Dispatch<SetStateAction<any>>;
@@ -32,6 +33,11 @@ interface IReturn {
    searchHandler: () => void;
    categorySelection: string;
    categoryField: (value: string) => void;
+   currentLoansCount: number;
+   isLoadingCurrentLoansCount: boolean;
+   isCheckedOut: boolean;
+   isLoadingBookCheckedOut: boolean;
+   checkoutBook: () => Promise<void>
 }
 
 const useFetchBooks = ({
@@ -41,6 +47,8 @@ const useFetchBooks = ({
    usePagination = false,
    fetchOne = false,
 }: IProps): IReturn => {
+   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+
    const [books, setBooks] = useState<IBookModel[]>([]);
    const [isLoading, setIsLoading] = useState(true);
    const [currentPage, setCurrentPage] = useState(1);
@@ -51,7 +59,13 @@ const useFetchBooks = ({
    const [searchUrl, setSearchUrl] = useState("");
    const [categorySelection, setCategorySelection] = useState("all_categories");
 
-   const bookId = (window.location.pathname).split("/")[2];
+   const [currentLoansCount, setCurrentLoansCount] = useState(0);
+   const [isLoadingCurrentLoansCount, setIsLoadingCurrentLoansCount] =
+      useState(true);
+   const [isCheckedOut, setIsCheckedOut] = useState(false);
+   const [isLoadingBookCheckedOut, setIsLoadingBookCheckedOut] = useState(true);
+
+   const bookId = window.location.pathname.split("/")[2];
 
    useEffect(() => {
       const fetchBooks = async () => {
@@ -81,7 +95,7 @@ const useFetchBooks = ({
          }
 
          let loadedBooks: IBookModel[] = [];
-         
+
          if (fetchOne) {
             const responseJson: IBookWithLinksResponse = await response.json();
             const { _links, ...rest } = responseJson;
@@ -119,7 +133,72 @@ const useFetchBooks = ({
       });
 
       window.scrollTo(0, 0);
-   }, [bookId, booksPerPage, currentPage, fetchOne, page, searchUrl, setHttpError, size, usePagination]);
+   }, [bookId, booksPerPage, currentPage, fetchOne, page, searchUrl, setHttpError, size, usePagination, isCheckedOut]);
+
+   useEffect(() => {
+      if (!fetchOne) {
+         return;
+      }
+
+      const fetchUserCurrentLoansCount = async () => {
+         if (isAuthenticated) {
+            const accessToken = await getAccessTokenSilently();
+            const url = `http://localhost:8080/api/books/secure/currentloans/count`;
+            const requestOptions = {
+               method: "GET",
+               headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                  "Content-Type": "application/json",
+               },
+            };
+            const currentLoansCountResponse = await fetch(url, requestOptions);
+            if (!currentLoansCountResponse.ok) {
+               throw new Error("Something went wrong!");
+            }
+            const currentLoansCountResponseJson =
+               await currentLoansCountResponse.json();
+            setCurrentLoansCount(currentLoansCountResponseJson);
+         }
+         setIsLoadingCurrentLoansCount(false);
+      };
+      fetchUserCurrentLoansCount().catch((error: any) => {
+         setIsLoadingCurrentLoansCount(false);
+         setHttpError(error.message);
+      });
+   }, [isAuthenticated, getAccessTokenSilently, isCheckedOut, setHttpError, isCheckedOut, fetchOne]);
+
+   useEffect(() => {
+      if (!fetchOne) {
+         return;
+      }
+
+      const fetchUserCheckedOutBook = async () => {
+         if (isAuthenticated) {
+            const accessToken = await getAccessTokenSilently();
+            const url = `http://localhost:8080/api/books/secure/ischeckedout/byuser?bookId=${bookId}`;
+            const requestOptions = {
+               method: "GET",
+               headers: {
+                  Authorization: `Bearer ${accessToken}`,
+                  "Content-Type": "application/json",
+               },
+            };
+            const bookCheckedOut = await fetch(url, requestOptions);
+
+            if (!bookCheckedOut.ok) {
+               throw new Error("Something went wrong!");
+            }
+
+            const bookCheckedOutResponseJson = await bookCheckedOut.json();
+            setIsCheckedOut(bookCheckedOutResponseJson);
+         }
+         setIsLoadingBookCheckedOut(false);
+      };
+      fetchUserCheckedOutBook().catch((error: any) => {
+         setIsLoadingBookCheckedOut(false);
+         setHttpError(error.message);
+      });
+   }, [bookId, isAuthenticated, getAccessTokenSilently, setHttpError, fetchOne]);
 
    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
@@ -153,6 +232,23 @@ const useFetchBooks = ({
       }
    };
 
+   async function checkoutBook() {
+      const accessToken = await getAccessTokenSilently();
+      const url = `http://localhost:8080/api/books/secure/checkout?bookId=${books[0]?.id}`;
+      const requestOptions = {
+         method: "PUT",
+         headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+         },
+      };
+      const checkoutResponse = await fetch(url, requestOptions);
+      if (!checkoutResponse.ok) {
+         throw new Error("Something went wrong!");
+      }
+      setIsCheckedOut(true);
+   }
+
    return {
       books,
       bookId,
@@ -166,6 +262,11 @@ const useFetchBooks = ({
       searchHandler,
       categorySelection,
       categoryField,
+      currentLoansCount,
+      isLoadingCurrentLoansCount,
+      isCheckedOut,
+      isLoadingBookCheckedOut,
+      checkoutBook
    };
 };
 

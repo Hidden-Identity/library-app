@@ -40,5 +40,8 @@
   "latest_reviews": "Latest Reviews",
   "read_all_reviews": "Read all reviews",
   "no_reviews_for_book": "There are currently no reviews for this book",
-  "sign_out": "Sign out"
+  "sign_out": "Sign out",
+  "checkout": "Checkout",
+  "book_checked_out": "Book checked out. Enjoy!",
+  "too_many_books": "Too many books checked out."
 }

@@ -14,14 +14,24 @@ import { LatestReviews } from "./LatestReviews";
 
 const BookCheckoutPage: FC = () => {
    const [httpError, setHttpError] = useState(null);
-   const { bookId, books, isLoading } = useFetchBooks({ setHttpError, fetchOne: true });
+   const {
+      bookId,
+      books,
+      isLoading,
+      currentLoansCount,
+      isLoadingCurrentLoansCount,
+      isCheckedOut,
+      isLoadingBookCheckedOut,
+      checkoutBook
+   } = useFetchBooks({ setHttpError, fetchOne: true });
    const book = books[0];
    const { reviews, totalStars, isLoadingReview } = useFetchReviews({ bookId, setHttpError });
 
-   if (isLoading || httpError) {
+
+   if (isLoading || isLoadingReview || isLoadingCurrentLoansCount || isLoadingBookCheckedOut || httpError) {
       return (
          <Container className="d-flex justify-content-center align-items-center">
-            {isLoading || isLoadingReview ? <Spinner className="m-5 primary" /> : <p>{httpError}</p>}
+            {httpError ? <p>{httpError}</p> : <Spinner className="m-5 primary" />}
          </Container>
       );
    }
@@ -44,7 +54,12 @@ const BookCheckoutPage: FC = () => {
                <p className="lead">{book?.description}</p>
                <StarsReview rating={totalStars} size={32} />
             </Container>
-            <CheckoutAndReviewBox book={book} />
+            <CheckoutAndReviewBox
+               book={book}
+               currentLoansCount={currentLoansCount}
+               isCheckedOut={isCheckedOut}
+               checkoutBook={checkoutBook}
+            />
          </Row>
          <hr />
          <LatestReviews reviews={reviews} bookId={book?.id} />
