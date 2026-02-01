@@ -4,8 +4,8 @@
  */
 
 const auth0Config = {
-   clientId: "RIfiubFlJS7hJvskCCH4vGubaCy9Dy3V",
-   issuer: "dev-0bkh3l7xvoy21at4.eu.auth0.com",
+   clientId: "i9X8PefHi9T5vD5jyKTNh3UIvtmHZEQJ",
+   issuer: "dev-w3ucylxkjmvrgmf0.us.auth0.com",
    audience: "http://localhost:8080",
    redirectUri: window.location.origin + "/callback",
    scope: "openid profile email",

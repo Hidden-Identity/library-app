@@ -28,6 +28,8 @@ const Auth0ProviderWithHistory = ({ children }: { children: ReactNode }) => {
             ui_locales: i18n.language
          }}
          onRedirectCallback={onRedirectCallback}
+         cacheLocation="localstorage"
+         useRefreshTokens={true}
       >
          {children}
       </Auth0Provider>
