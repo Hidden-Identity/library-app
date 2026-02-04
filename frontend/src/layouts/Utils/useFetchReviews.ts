@@ -5,6 +5,8 @@
 
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IReviewModel, ReviewsResponse } from "../../models/ReviewModel";
+import { useAuth0 } from "@auth0/auth0-react";
+import ReviewRequestModel from "../../models/ReviewRequestModel";
 
 interface IProps {
    bookId: string;
@@ -15,15 +17,23 @@ interface IReturn {
    reviews: IReviewModel[];
    totalStars: number;
    isLoadingReview: boolean;
+   isReviewLeft: boolean;
+   isLoadingUserReview: boolean;
+   submitReview: (rating: number, description: string) => Promise<void>;
 }
 
 const useFetchReviews = ({
    bookId,
    setHttpError
 }: IProps): IReturn => {
+   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+
    const [reviews, setReviews] = useState<IReviewModel[]>([]);
    const [totalStars, setTotalStars] = useState(0);
    const [isLoadingReview, setIsLoadingReview] = useState(true);
+
+   const [isReviewLeft, setIsReviewLeft] = useState(false);
+   const [isLoadingUserReview, setIsLoadingUserReview] = useState(true);
 
    useEffect(() => {
       const fetchBookReviews = async () => {
@@ -68,12 +78,68 @@ const useFetchReviews = ({
          setIsLoadingReview(false);
          setHttpError(error.message);
       });
-   }, [bookId, setHttpError]);
+   }, [bookId, setHttpError, isReviewLeft]);
 
+   useEffect(() => {
+      const fetchUserReviewBook = async () => {
+         if (isAuthenticated) {
+               const accessToken = await getAccessTokenSilently();
+               const url = `http://localhost:8080/api/reviews/secure/user/book?bookId=${bookId}`;
+               const requestOptions = {
+                  method: 'GET',
+                  headers: {
+                     Authorization: `Bearer ${accessToken}`,
+                     'Content-Type': 'application/json'
+                  }
+               };
+               const userReview = await fetch(url, requestOptions);
+
+               if (!userReview.ok) {
+                  throw new Error('Something went wrong');
+               }
+
+               const userReviewResponseJson = await userReview.json();
+
+               setIsReviewLeft(userReviewResponseJson);
+         }
+         setIsLoadingUserReview(false);
+      }
+
+      fetchUserReviewBook().catch((error: any) => {
+         setIsLoadingUserReview(false);
+         setHttpError(error.message);
+      })
+   }, [bookId, isAuthenticated, getAccessTokenSilently, setHttpError]);
+
+   const submitReview = async (rating: number, description: string) => { 
+      const reviewRequestModel = new ReviewRequestModel(rating, Number(bookId), description);
+      const url = `http://localhost:8080/api/reviews/secure`;
+      const accessToken = await getAccessTokenSilently();
+      const requestOptions = {
+         method: 'POST',
+         headers: {
+               Authorization: `Bearer ${accessToken}`,
+               'Content-Type': 'application/json'
+         },
+         body: JSON.stringify(reviewRequestModel)
+      };
+
+      const returnResponse = await fetch(url, requestOptions);
+
+      if (!returnResponse.ok) {
+         throw new Error('Something went wrong!');
+      }
+
+      setIsReviewLeft(true);
+   }
+   
    return {
       reviews,
       totalStars,
-      isLoadingReview
+      isLoadingReview,
+      isReviewLeft,
+      isLoadingUserReview,
+      submitReview
    };
 };
 

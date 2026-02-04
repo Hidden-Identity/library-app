@@ -25,10 +25,10 @@ const BookCheckoutPage: FC = () => {
       checkoutBook
    } = useFetchBooks({ setHttpError, fetchOne: true });
    const book = books[0];
-   const { reviews, totalStars, isLoadingReview } = useFetchReviews({ bookId, setHttpError });
+   const { reviews, totalStars, isLoadingReview, isReviewLeft, isLoadingUserReview, submitReview } = useFetchReviews({ bookId, setHttpError });
 
 
-   if (isLoading || isLoadingReview || isLoadingCurrentLoansCount || isLoadingBookCheckedOut || httpError) {
+   if (isLoading || isLoadingReview || isLoadingUserReview || isLoadingCurrentLoansCount || isLoadingBookCheckedOut || httpError) {
       return (
          <Container className="d-flex justify-content-center align-items-center">
             {httpError ? <p>{httpError}</p> : <Spinner className="m-5 primary" />}
@@ -59,6 +59,8 @@ const BookCheckoutPage: FC = () => {
                currentLoansCount={currentLoansCount}
                isCheckedOut={isCheckedOut}
                checkoutBook={checkoutBook}
+               isReviewLeft={isReviewLeft}
+               submitReview={submitReview}
             />
          </Row>
          <hr />

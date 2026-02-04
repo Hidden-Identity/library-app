@@ -27,7 +27,7 @@ const StarsReview: FC<IProps> = ({ rating, size }) => {
       }
    });
 
-   return <>{starTypes}</>;
+   return <div>{starTypes}</div>;
 }
 
 

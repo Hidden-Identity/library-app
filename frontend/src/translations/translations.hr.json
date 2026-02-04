@@ -43,5 +43,9 @@
   "sign_out": "Odjava",
   "checkout": "Posudi",
   "book_checked_out": "Knjiga je posuđena. Uživajte!",
-  "too_many_books": "Previše knjiga je posuđeno."
+  "too_many_books": "Previše knjiga je posuđeno.",
+  "thank_you_for_review": "Hvala vam na recenziji!",
+  "submit_review": "Objavite recenziju",
+  "description": "Opis",
+  "optional": "Neobavezno"
 }

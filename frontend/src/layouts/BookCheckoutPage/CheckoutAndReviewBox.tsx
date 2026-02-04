@@ -10,15 +10,18 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { capitalize } from "lodash";
 import { useAuth0 } from "@auth0/auth0-react";
+import { LeaveAReview } from "../Utils/LeaveAReview";
 
 interface IProps {
    book?: IBookModel;
    currentLoansCount: number;
    isCheckedOut: boolean;
-   checkoutBook: () => Promise<void>
+   checkoutBook: () => Promise<void>;
+   isReviewLeft: boolean;
+   submitReview: (rating: number, description: string) => Promise<void>;
 }
 
-const CheckoutAndReviewBox: FC<IProps> = ({ book, currentLoansCount, isCheckedOut, checkoutBook }) => {
+const CheckoutAndReviewBox: FC<IProps> = ({ book, currentLoansCount, isCheckedOut, checkoutBook, isReviewLeft, submitReview }) => {
    const { t } = useTranslation();
    const { isAuthenticated } = useAuth0();
 
@@ -42,6 +45,18 @@ const CheckoutAndReviewBox: FC<IProps> = ({ book, currentLoansCount, isCheckedOu
       return <Button onClick={() => checkoutBook()} variant="success" size="lg" className="mt-3">{t('checkout')}</Button>;
    };
 
+   const reviewRender = () => {
+      if (!isAuthenticated) {
+         return <><hr /><p>{t('sign_in_to_review')}</p></>;
+      }
+
+      if (isReviewLeft) {
+         return <p><b>{t('thank_you_for_review')}</b></p>;
+      }
+
+      return <LeaveAReview submitReview={submitReview} />;
+   };
+
    return (
       <Card className="mt-5 mt-lg-0 col-lg-3 mb-5">
          <Card.Body>
@@ -63,7 +78,7 @@ const CheckoutAndReviewBox: FC<IProps> = ({ book, currentLoansCount, isCheckedOu
             {buttonRender()}
             <hr />
             <p className="mt-3">{t('number_can_change')}</p>
-            <p>{t('sign_in_to_review')}</p>
+            <p>{reviewRender()}</p>
          </Card.Body>
       </Card>
    )

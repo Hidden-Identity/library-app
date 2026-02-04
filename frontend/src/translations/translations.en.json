@@ -43,5 +43,9 @@
   "sign_out": "Sign out",
   "checkout": "Checkout",
   "book_checked_out": "Book checked out. Enjoy!",
-  "too_many_books": "Too many books checked out."
+  "too_many_books": "Too many books checked out.",
+  "thank_you_for_review": "Thank you for your review!",
+  "submit_review": "Submit Review",
+  "description": "Description",
+  "optional": "Optional"
 }
