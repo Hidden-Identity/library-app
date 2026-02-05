@@ -11,6 +11,7 @@ import ReviewRequestModel from "../../models/ReviewRequestModel";
 interface IProps {
    bookId: string;
    setHttpError: Dispatch<SetStateAction<any>>;
+   usePagination?: boolean;
 }
 
 interface IReturn {
@@ -20,11 +21,17 @@ interface IReturn {
    isReviewLeft: boolean;
    isLoadingUserReview: boolean;
    submitReview: (rating: number, description: string) => Promise<void>;
+   currentPage: number;
+   paginate: (pageNumber: number) => void;
+   reviewsPerPage: number;
+   totalAmountOfReviews: number;
+   totalPages: number;
 }
 
 const useFetchReviews = ({
    bookId,
-   setHttpError
+   setHttpError,
+   usePagination = false,
 }: IProps): IReturn => {
    const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
@@ -35,9 +42,19 @@ const useFetchReviews = ({
    const [isReviewLeft, setIsReviewLeft] = useState(false);
    const [isLoadingUserReview, setIsLoadingUserReview] = useState(true);
 
+   const [currentPage, setCurrentPage] = useState(1);
+   const [reviewsPerPage] = useState(5);
+   const [totalAmountOfReviews, setTotalAmountOfReviews] = useState(0);
+   const [totalPages, setTotalPages] = useState(0);
+
    useEffect(() => {
       const fetchBookReviews = async () => {
-         const url = `http://localhost:8080/api/reviews/search/findByBookId?bookId=${bookId}`;
+         const baseUrl = `http://localhost:8080/api/reviews/search/findByBookId?bookId=${bookId}`;
+         let url = baseUrl;
+
+         if (usePagination) {
+            url = `${baseUrl}&page=${currentPage - 1}&size=${reviewsPerPage}`
+         }
 
          const response = await fetch(url);
 
@@ -47,6 +64,12 @@ const useFetchReviews = ({
 
          const responseJson: ReviewsResponse = await response.json();
          const responseData = responseJson._embedded.reviews;
+
+         if (usePagination) {
+            setTotalAmountOfReviews(responseJson.page.totalElements);
+            setTotalPages(responseJson.page.totalPages);
+         }
+
          const loadedReviews: IReviewModel[] = [];
          let weightedStarReviews: number = 0;
 
@@ -63,7 +86,7 @@ const useFetchReviews = ({
                weightedStarReviews + responseData[key].rating;
          }
 
-         if (loadedReviews) {
+         if (loadedReviews && !usePagination) {
             const round = (
                Math.round((weightedStarReviews / loadedReviews.length) * 2) / 2
             ).toFixed(1);
@@ -78,9 +101,13 @@ const useFetchReviews = ({
          setIsLoadingReview(false);
          setHttpError(error.message);
       });
-   }, [bookId, setHttpError, isReviewLeft]);
+   }, [bookId, setHttpError, isReviewLeft, usePagination, currentPage, reviewsPerPage]);
 
    useEffect(() => {
+      if (usePagination) {
+         return;
+      }
+
       const fetchUserReviewBook = async () => {
          if (isAuthenticated) {
                const accessToken = await getAccessTokenSilently();
@@ -109,7 +136,7 @@ const useFetchReviews = ({
          setIsLoadingUserReview(false);
          setHttpError(error.message);
       })
-   }, [bookId, isAuthenticated, getAccessTokenSilently, setHttpError]);
+   }, [bookId, isAuthenticated, getAccessTokenSilently, setHttpError, usePagination]);
 
    const submitReview = async (rating: number, description: string) => { 
       const reviewRequestModel = new ReviewRequestModel(rating, Number(bookId), description);
@@ -132,6 +159,8 @@ const useFetchReviews = ({
 
       setIsReviewLeft(true);
    }
+
+   const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
    
    return {
       reviews,
@@ -139,7 +168,12 @@ const useFetchReviews = ({
       isLoadingReview,
       isReviewLeft,
       isLoadingUserReview,
-      submitReview
+      submitReview,
+      currentPage,
+      reviewsPerPage,
+      totalAmountOfReviews,
+      totalPages,
+      paginate
    };
 };
 

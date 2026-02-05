@@ -14,7 +14,7 @@ interface IProps {
 
 const STAR_VALUES = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5];
 
-export const LeaveAReview: FC<IProps> = ({submitReview}) => {
+const LeaveAReview: FC<IProps> = ({ submitReview }) => {
    const { t } = useTranslation();
 
    const [rating, setRating] = useState(0);
@@ -29,7 +29,7 @@ export const LeaveAReview: FC<IProps> = ({submitReview}) => {
    return (
       <Stack gap={1}>
          <Dropdown>
-            <Dropdown.Toggle as={"h5"} style={{cursor: "pointer"}}>
+            <Dropdown.Toggle as={"h5"} style={{ cursor: "pointer" }}>
                {t('submit_review')}?
             </Dropdown.Toggle>
 
@@ -72,3 +72,5 @@ export const LeaveAReview: FC<IProps> = ({submitReview}) => {
       </Stack>
    );
 };
+
+export { LeaveAReview };
