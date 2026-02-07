@@ -6,11 +6,14 @@
 package com.library_app.spring_boot_library.controller;
 
 import com.library_app.spring_boot_library.entity.Book;
+import com.library_app.spring_boot_library.responsemodels.ShelfCurrentLoansResponse;
 import com.library_app.spring_boot_library.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -22,6 +25,13 @@ public class BookController {
     @Autowired
     public BookController(BookService bookService) {
         this.bookService = bookService;
+    }
+
+    @GetMapping("/secure/currentloans")
+    public List<ShelfCurrentLoansResponse> currentLoans(@AuthenticationPrincipal Jwt jwt) throws Exception
+    {
+        String userEmail = jwt.getClaim("email");
+        return bookService.currentLoans(userEmail);
     }
 
     @GetMapping("/secure/currentloans/count")
