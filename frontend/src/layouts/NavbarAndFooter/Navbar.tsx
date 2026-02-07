@@ -43,6 +43,9 @@ const AppNavbar: FC = () => {
           <Nav>
             <Nav.Link as={NavLink} to="/home">{t('home')}</Nav.Link>
             <Nav.Link as={NavLink} to="/search">{t('search_books')}</Nav.Link>
+            {isAuthenticated && (
+              <Nav.Link as={NavLink} to="/shelf">{t('shelf')}</Nav.Link>
+            )}
           </Nav>
           <Nav className="ms-auto">
             <Nav.Item className="m-1">

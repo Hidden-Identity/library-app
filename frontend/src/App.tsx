@@ -5,9 +5,10 @@ import { Navbar, Footer } from "./layouts/NavbarAndFooter";
 import { SearchBooksPage } from './layouts/SearchBooksPage';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { BookCheckoutPage } from './layouts/BookCheckoutPage';
-import { Auth0ProviderWithHistory } from './layouts/Utils/authHelpers';
+import { Auth0ProviderWithHistory, SecureRoute } from './layouts/Utils/authHelpers';
 import { LoginRedirect } from './layouts/Utils/LoginRedirect';
 import { ReviewListPage } from './layouts/BookCheckoutPage/ReviewListPage/ReviewListPage';
+import { ShelfPage } from './layouts/ShelfPage';
 
 const App: FC = () => (
    <div className='d-flex flex-column min-vh-100'>
@@ -31,6 +32,7 @@ const App: FC = () => (
                <BookCheckoutPage />
             </Route>
             <Route path='/login' component={LoginRedirect} />
+            <SecureRoute path='/shelf' component={ShelfPage} />
          </Switch>
       </div>
       <Footer />
