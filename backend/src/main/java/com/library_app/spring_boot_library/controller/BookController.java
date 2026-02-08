@@ -28,8 +28,7 @@ public class BookController {
     }
 
     @GetMapping("/secure/currentloans")
-    public List<ShelfCurrentLoansResponse> currentLoans(@AuthenticationPrincipal Jwt jwt) throws Exception
-    {
+    public List<ShelfCurrentLoansResponse> currentLoans(@AuthenticationPrincipal Jwt jwt) throws Exception {
         String userEmail = jwt.getClaim("email");
         return bookService.currentLoans(userEmail);
     }
@@ -41,8 +40,7 @@ public class BookController {
     }
 
     @GetMapping("/secure/ischeckedout/byuser")
-    public Boolean checkoutBookByUser(@AuthenticationPrincipal Jwt jwt,
-                                      @RequestParam Long bookId) {
+    public Boolean checkoutBookByUser(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) {
         String userEmail = jwt.getClaim("email");
         return bookService.checkoutBookByUser(userEmail, bookId);
     }
@@ -51,5 +49,17 @@ public class BookController {
     public Book checkoutBook(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws Exception {
         String userEmail = jwt.getClaim("email");
         return bookService.checkoutBook(userEmail, bookId);
+    }
+
+    @PutMapping("/secure/return")
+    public void returnBook(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws Exception {
+        String userEmail = jwt.getClaim("email");
+        bookService.returnBook(userEmail, bookId);
+    }
+
+    @PutMapping("/secure/renew/loan")
+    public void renewLoan(@AuthenticationPrincipal Jwt jwt, @RequestParam Long bookId) throws Exception {
+        String userEmail = jwt.getClaim("email");
+        bookService.renewLoan(userEmail, bookId);
     }
 }
