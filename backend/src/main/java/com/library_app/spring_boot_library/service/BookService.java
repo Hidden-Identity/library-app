@@ -7,8 +7,10 @@ package com.library_app.spring_boot_library.service;
 
 import com.library_app.spring_boot_library.dao.BookRepository;
 import com.library_app.spring_boot_library.dao.CheckoutRepository;
+import com.library_app.spring_boot_library.dao.HistoryRepository;
 import com.library_app.spring_boot_library.entity.Book;
 import com.library_app.spring_boot_library.entity.Checkout;
+import com.library_app.spring_boot_library.entity.History;
 import com.library_app.spring_boot_library.responsemodels.ShelfCurrentLoansResponse;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,12 +28,16 @@ public class BookService {
 
     private CheckoutRepository checkoutRepository;
 
-    public BookService(BookRepository bookRepository, CheckoutRepository checkoutRepository) {
+    private HistoryRepository historyRepository;
+
+    public BookService(BookRepository bookRepository, CheckoutRepository checkoutRepository,
+                       HistoryRepository historyRepository) {
         this.bookRepository = bookRepository;
         this.checkoutRepository = checkoutRepository;
+        this.historyRepository = historyRepository;
     }
 
-    public Book checkoutBook (String userEmail, Long bookId) throws Exception {
+    public Book checkoutBook(String userEmail, Long bookId) throws Exception {
 
         Optional<Book> book = bookRepository.findById(bookId);
 
@@ -56,7 +62,7 @@ public class BookService {
         return book.get();
     }
 
-    public Boolean checkoutBookByUser (String userEmail, Long bookId) {
+    public Boolean checkoutBookByUser(String userEmail, Long bookId) {
         Checkout validateCheckout = checkoutRepository.findByUserEmailAndBookId(userEmail, bookId);
         return validateCheckout != null;
     }
@@ -72,7 +78,7 @@ public class BookService {
         List<Checkout> checkoutList = checkoutRepository.findBooksByUserEmail(userEmail);
         List<Long> bookIdList = new ArrayList<>();
 
-        for (Checkout i: checkoutList) {
+        for (Checkout i : checkoutList) {
             bookIdList.add(i.getBookId());
         }
 
@@ -101,7 +107,7 @@ public class BookService {
         return shelfCurrentLoansResponses;
     }
 
-    public void returnBook (String userEmail, Long bookId) throws Exception {
+    public void returnBook(String userEmail, Long bookId) throws Exception {
 
         Optional<Book> book = bookRepository.findById(bookId);
 
@@ -115,6 +121,18 @@ public class BookService {
 
         bookRepository.save(book.get());
         checkoutRepository.deleteById(validateCheckout.getId());
+
+        History history = new History(
+                userEmail,
+                validateCheckout.getCheckoutDate(),
+                LocalDate.now().toString(),
+                book.get().getTitle(),
+                book.get().getAuthor(),
+                book.get().getDescription(),
+                book.get().getImg()
+        );
+
+        historyRepository.save(history);
     }
 
     public void renewLoan(String userEmail, Long bookId) throws Exception {
