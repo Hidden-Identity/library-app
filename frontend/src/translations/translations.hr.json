@@ -66,5 +66,9 @@
   "return_book": "Vrati posudbu",
   "close": "Zatvori",
   "late_dues_unrenewable": "Zakašnjene posudbe se ne mogu obnoviti",
-  "renew_loan_for_7_days": "Produlji posudbu za 7 dana"
+  "renew_loan_for_7_days": "Produlji posudbu za 7 dana",
+  "recent_history": "Nedavna povijest",
+  "checked_out_on": "Datum posudbe",
+  "returned_on": "Datum vraćanja",
+  "currently_no_history": "Trenutno nemate povijest"
 }

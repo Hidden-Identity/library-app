@@ -7,6 +7,7 @@ import { FC } from "react";
 import { Container, Tabs, Tab } from "react-bootstrap";
 import { Loans } from "./components/Loans";
 import { useTranslation } from "react-i18next";
+import { History } from "./components/HistoryPage";
 
 const ShelfPage: FC = () => {
    const { t } = useTranslation();
@@ -22,7 +23,8 @@ const ShelfPage: FC = () => {
             <Tab eventKey="loans" title={t('loans')}>
                <Loans />
             </Tab>
-            <Tab eventKey="history" title={t('your_history')}>
+            <Tab eventKey="history" title={t('your_history')} unmountOnExit>
+               <History />
             </Tab>
          </Tabs>
       </Container>
