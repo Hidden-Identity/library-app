@@ -65,7 +65,7 @@ const SearchBooksPage: FC = () => {
                </Form>
             </Col>
             <Col md={4}>
-               <Dropdown>
+               <Dropdown className="mt-3 mt-md-0">
                   <Dropdown.Toggle variant="secondary" id="dropdownMenuButton1">
                      {t(`${categorySelection}`)}
                   </Dropdown.Toggle>

@@ -4,7 +4,7 @@
  */
 
 import { FC, useState } from "react";
-import { Button, Card, Col, Container, ListGroup, Row, Spinner } from "react-bootstrap";
+import { Button, Card, Col, Container, Image, ListGroup, Row, Spinner } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useLoans } from "../../Utils/useLoans";
 import bookImg from '../../../Images/BooksImages/book-1.png';
@@ -48,12 +48,12 @@ const Loans: FC = () => {
                         <div key={book.id} className="mb-4">
                            <Row className="g-4 align-items-center justify-content-around">
                               <Col xs={12} lg={4} className="text-center">
-                                 <img
+                                 <Image
                                     src={book?.img ?? bookImg}
                                     width="226"
                                     height="349"
                                     alt="Book"
-                                    className="img-fluid"
+                                    fluid
                                  />
                               </Col>
                               <Col xs={12} lg={4}>
@@ -84,7 +84,6 @@ const Loans: FC = () => {
                                        >
                                           {t('leave_a_review')}
                                        </Button>
-
                                     </Card.Body>
                                  </Card>
                               </Col>
