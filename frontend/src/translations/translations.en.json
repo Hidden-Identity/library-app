@@ -77,5 +77,11 @@
   "fill_all_fields": "All fields must be filled out",
   "question_add_success": "Question added successfully",
   "title": "Title",
-  "question": "Question"
+  "question": "Question",
+  "current_qna": "Current Q/A",
+  "case": "Case",
+  "response": "Response",
+  "admin": "admin",
+  "pending_response": "Pending response from administration. Please be patient.",
+  "no_questions": "All questions you submit will be shown here"
 }

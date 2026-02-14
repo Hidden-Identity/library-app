@@ -77,5 +77,11 @@
   "fill_all_fields": "Potrebno je ispuniti sva polja",
   "question_add_success": "Uspješno ste objavili pitanje",
   "title": "Naslov",
-  "question": "Pitanje"
+  "question": "Pitanje",
+  "current_qna": "Trenutna pitanja i odgovori",
+  "case": "Predmet",
+  "response": "Odgovor",
+  "admin": "administrator",
+  "pending_response": "Čeka se odgovor od administracije. Molimo vas za strpljenje.",
+  "no_questions": "Sva pitanja koja objavite će se prikazivati ovdje"
 }

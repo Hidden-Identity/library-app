@@ -27,7 +27,7 @@ const LibraryServices: FC = () => {
             <Button
               as={Link as any}
               className="main-color btn-lg text-white"
-              to={isAuthenticated ? '#' : '/login'}
+              to={isAuthenticated ? '/messages' : '/login'}
             >
               {isAuthenticated ? t('library_services') : t('sign_up')}
             </Button>

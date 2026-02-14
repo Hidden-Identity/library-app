@@ -7,6 +7,7 @@ import { FC } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import { PostNewMessage } from "./components/PostNewMessage";
 import { useTranslation } from "react-i18next";
+import { Messages } from "./components/Messages";
 
 const MessagesPage: FC = () => {
    const { t } = useTranslation();
@@ -21,6 +22,9 @@ const MessagesPage: FC = () => {
          >
             <Tab eventKey="submit" title={t('submit_question')}>
                <PostNewMessage />
+            </Tab>
+            <Tab eventKey="messages" title={t('qna_response_pending')} unmountOnExit>
+               <Messages />
             </Tab>
          </Tabs>
       </Container>
