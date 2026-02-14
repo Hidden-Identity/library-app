@@ -83,5 +83,12 @@
   "response": "Response",
   "admin": "admin",
   "pending_response": "Pending response from administration. Please be patient.",
-  "no_questions": "All questions you submit will be shown here"
+  "no_questions": "All questions you submit will be shown here",
+  "manage_library": "Manage Library",
+  "add_new_book": "Add new book",
+  "change_quantity": "Change quantity",
+  "messages": "Messages",
+  "pending_qna": "Pending Q/A",
+  "no_pending_qna": "No pending Q/A",
+  "submit_response": "Submit response"
 }

@@ -44,8 +44,6 @@ const useRoles = (): IReturn => {
       window.location.assign("/");
    };
 
-   console.log("isAuthenticated: ", isAuthenticated);
-
    return {
       roles,
       loading,

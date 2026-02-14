@@ -83,5 +83,12 @@
   "response": "Odgovor",
   "admin": "administrator",
   "pending_response": "Čeka se odgovor od administracije. Molimo vas za strpljenje.",
-  "no_questions": "Sva pitanja koja objavite će se prikazivati ovdje"
+  "no_questions": "Sva pitanja koja objavite će se prikazivati ovdje",
+  "manage_library": "Upravljanje knjižnicom",
+  "add_new_book": "Dodajte novu knjigu",
+  "change_quantity": "Promijenite količinu",
+  "messages": "Poruke",
+  "pending_qna": "Čeka se odgovor",
+  "no_pending_qna": "Nema odgovora na čekanju",
+  "submit_response": "Objavite odgovor"
 }

@@ -9,6 +9,7 @@ import { IMessageModel, MessagesResponse } from "../../models/MessageModel";
 
 interface IProps {
    setHttpError: Dispatch<SetStateAction<any>>;
+   isAdminPage?: boolean
 }
 
 interface IReturn {
@@ -21,7 +22,8 @@ interface IReturn {
 }
 
 const useMessages = ({
-   setHttpError
+   setHttpError,
+   isAdminPage = false
 }: IProps): IReturn => {
    const { isAuthenticated, user, getAccessTokenSilently } = useAuth0();
 
@@ -35,7 +37,8 @@ const useMessages = ({
       const fetchUserMessages = async () => {
          if (isAuthenticated) {
             const accessToken = await getAccessTokenSilently();
-            const url = `http://localhost:8080/api/messages/search/findByUserEmail?userEmail=${user?.email}&page=${currentPage - 1}&size=${messagesPerPage}`;
+            const endpointParams = isAdminPage ? 'findByClosed?closed=false' : `findByUserEmail?userEmail=${user?.email}`;
+            const url = `http://localhost:8080/api/messages/search/${endpointParams}&page=${currentPage - 1}&size=${messagesPerPage}`;
             const requestOptions = {
                method: 'GET',
                headers: {

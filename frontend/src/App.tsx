@@ -10,6 +10,7 @@ import { LoginRedirect } from './layouts/Utils/LoginRedirect';
 import { ReviewListPage } from './layouts/BookCheckoutPage/ReviewListPage/ReviewListPage';
 import { ShelfPage } from './layouts/ShelfPage';
 import { MessagesPage } from './layouts/MessagesPage';
+import { ManageLibrary } from './layouts/ManageLibraryPage';
 
 const App: FC = () => (
    <div className='d-flex flex-column min-vh-100'>
@@ -35,6 +36,7 @@ const App: FC = () => (
             <Route path='/login' component={LoginRedirect} />
             <SecureRoute path='/shelf' component={ShelfPage} />
             <SecureRoute path='/messages' component={MessagesPage} />
+            <SecureRoute path='/admin' component={ManageLibrary} />
          </Switch>
       </div>
       <Footer />
