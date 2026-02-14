@@ -70,5 +70,12 @@
   "recent_history": "Recent History",
   "checked_out_on": "Checked out on",
   "returned_on": "Returned on",
-  "currently_no_history": "Currently no history"
+  "currently_no_history": "Currently no history",
+  "submit_question": "Submit question",
+  "qna_response_pending": "Q/A Response/Pending",
+  "ask_admin": "Ask question to admin",
+  "fill_all_fields": "All fields must be filled out",
+  "question_add_success": "Question added successfully",
+  "title": "Title",
+  "question": "Question"
 }

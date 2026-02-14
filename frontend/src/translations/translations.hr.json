@@ -70,5 +70,12 @@
   "recent_history": "Nedavna povijest",
   "checked_out_on": "Datum posudbe",
   "returned_on": "Datum vraćanja",
-  "currently_no_history": "Trenutno nemate povijest"
+  "currently_no_history": "Trenutno nemate povijest",
+  "submit_question": "Objavite pitanje",
+  "qna_response_pending": "Odgovor/Na čekanju",
+  "ask_admin": "Postavite pitanje administratoru",
+  "fill_all_fields": "Potrebno je ispuniti sva polja",
+  "question_add_success": "Uspješno ste objavili pitanje",
+  "title": "Naslov",
+  "question": "Pitanje"
 }
