@@ -6,6 +6,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { IMessageModel, MessagesResponse } from "../../models/MessageModel";
+import AdminMessageRequest from "../../models/AdminMessageRequest";
 
 interface IProps {
    setHttpError: Dispatch<SetStateAction<any>>;
@@ -19,6 +20,7 @@ interface IReturn {
    paginate: (pageNumber: number) => void;
    messagesPerPage: number;
    totalPages: number;
+   submitResponseToQuestion: (id: number, response: string) => Promise<void>
 }
 
 const useMessages = ({
@@ -32,8 +34,13 @@ const useMessages = ({
    const [messagesPerPage] = useState(5);
    const [currentPage, setCurrentPage] = useState(1);
    const [totalPages, setTotalPages] = useState(0);
+   const [refresh, setRefresh] = useState(true);
 
    useEffect(() => {
+      if (!refresh) {
+         return;
+      }
+
       const fetchUserMessages = async () => {
          if (isAuthenticated) {
             const accessToken = await getAccessTokenSilently();
@@ -58,18 +65,46 @@ const useMessages = ({
             setMessages(messagesResponseJson._embedded.messages);
             setTotalPages(messagesResponseJson.page.totalPages);
          }
+
          setIsLoadingMessages(false);
       }
+
       fetchUserMessages().catch((error: any) => {
          setIsLoadingMessages(false);
          setHttpError(error.messages);
       })
 
-   }, [isAuthenticated, user, getAccessTokenSilently, currentPage, messagesPerPage, setHttpError]);
+      setRefresh(false);
+   }, [isAuthenticated, user, getAccessTokenSilently, currentPage, messagesPerPage, setHttpError, isAdminPage, refresh]);
 
    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
-   return { messages, isLoadingMessages, currentPage, paginate, messagesPerPage, totalPages }
+   const submitResponseToQuestion = async (id: number, response: string) => {
+      const url = `http://localhost:8080/api/messages/secure/admin/message`;
+      const accessToken = await getAccessTokenSilently();
+
+      if (isAuthenticated && id !== null && response !== '') {
+         const messageAdminRequestModel: AdminMessageRequest = new AdminMessageRequest(id, response);
+         const requestOptions = {
+            method: 'PUT',
+            headers: {
+               Authorization: `Bearer ${accessToken}`,
+               'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(messageAdminRequestModel)
+         };
+
+         const messageAdminRequestModelResponse = await fetch(url, requestOptions);
+
+         if (!messageAdminRequestModelResponse.ok) {
+            throw new Error('Something went wrong!');
+         }
+
+         setRefresh(true);
+      }
+   }
+
+   return { messages, isLoadingMessages, currentPage, paginate, messagesPerPage, totalPages, submitResponseToQuestion }
 };
 
 export { useMessages };

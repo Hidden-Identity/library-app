@@ -20,7 +20,8 @@ const AdminMessages: FC = () => {
       isLoadingMessages,
       currentPage,
       totalPages,
-      paginate
+      paginate,
+      submitResponseToQuestion
    } = useMessages({ setHttpError, isAdminPage: true });
 
    if (isLoadingMessages || httpError) {
@@ -43,7 +44,9 @@ const AdminMessages: FC = () => {
                      <AdminMessage
                         key={message.id}
                         message={message}
-                        onSubmit={(messageId, questionResponse) => {}}
+                        onSubmit={(messageId, questionResponse) =>
+                           submitResponseToQuestion(messageId, questionResponse)
+                        }
                      />
                   ))}
                </Stack>
