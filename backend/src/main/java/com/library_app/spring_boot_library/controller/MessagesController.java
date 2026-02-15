@@ -6,11 +6,14 @@
 package com.library_app.spring_boot_library.controller;
 
 import com.library_app.spring_boot_library.entity.Message;
+import com.library_app.spring_boot_library.requestmodels.AdminQuestionRequest;
 import com.library_app.spring_boot_library.service.MessagesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @CrossOrigin("http://localhost:3000")
 @RestController
@@ -29,5 +32,17 @@ public class MessagesController {
                             @RequestBody Message messageRequest) {
         String userEmail = jwt.getClaim("email");
         messagesService.postMessage(messageRequest, userEmail);
+    }
+
+    @PutMapping("/secure/admin/message")
+    public void putMessage(@AuthenticationPrincipal Jwt jwt,
+                           @RequestBody AdminQuestionRequest adminQuestionRequest) throws Exception {
+        String userEmail = jwt.getClaim("email");
+        List<String> roles = jwt.getClaimAsStringList("https://library-app.com/roles");
+        String admin = roles != null && !roles.isEmpty() ? roles.get(0) : null;
+        if (admin == null || !admin.equals("admin")) {
+            throw new Exception("Administration page only.");
+        }
+        messagesService.putMessage(adminQuestionRequest, userEmail);
     }
 }
