@@ -90,5 +90,9 @@
   "messages": "Messages",
   "pending_qna": "Pending Q/A",
   "no_pending_qna": "No pending Q/A",
-  "submit_response": "Submit response"
+  "submit_response": "Submit response",
+  "book_add_success": "Book added successfully",
+  "author": "Author",
+  "upload_img": "Upload Image",
+  "add": "Add"
 }

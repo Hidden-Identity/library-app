@@ -90,5 +90,9 @@
   "messages": "Poruke",
   "pending_qna": "Čeka se odgovor",
   "no_pending_qna": "Nema odgovora na čekanju",
-  "submit_response": "Objavite odgovor"
+  "submit_response": "Objavite odgovor",
+  "book_add_success": "Uspješno ste dodali knjigu",
+  "author": "Autor",
+  "upload_img": "Učitajte sliku",
+  "add": "Dodajte"
 }

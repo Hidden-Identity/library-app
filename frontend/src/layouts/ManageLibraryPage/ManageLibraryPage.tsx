@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { useRoles } from "../Utils/useRoles";
 import { Redirect } from "react-router-dom";
 import { AdminMessages } from "./components/AdminMessages";
+import { AddNewBook } from "./components/AddNewBook";
 
 const ManageLibraryPage: FC = () => {
    const { t } = useTranslation();
@@ -37,6 +38,7 @@ const ManageLibraryPage: FC = () => {
             mountOnEnter
          >
             <Tab eventKey="add" title={t('add_new_book')}>
+               <AddNewBook />
             </Tab>
             <Tab eventKey="quantity" title={t('change_quantity')} unmountOnExit>
             </Tab>
