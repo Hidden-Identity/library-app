@@ -9,14 +9,17 @@ import { Pagination } from "../../Utils/Pagination";
 import { useFetchBooks } from "../../Utils/useFetchBooks";
 import { ChangeQuantityOfBook } from "./ChangeQuantityOfBook";
 import { useTranslation } from "react-i18next";
+import { useAuth0 } from "@auth0/auth0-react";
 
 const ChangeQuantityOfBooks: FC = () => {
+   const { getAccessTokenSilently } = useAuth0();
    const { t } = useTranslation();
 
    const [httpError, setHttpError] = useState(null);
 
    const {
       books,
+      setBooks,
       isLoading,
       currentPage,
       paginate,
@@ -30,6 +33,26 @@ const ChangeQuantityOfBooks: FC = () => {
    const lastItem = booksPerPage * currentPage <= totalAmountOfBooks
       ? booksPerPage * currentPage
       : totalAmountOfBooks;
+
+   const deleteBook = async (bookId: number) => {
+      const url = `http://localhost:8080/api/admin/secure/delete/book?bookId=${bookId}`;
+      const accessToken = await getAccessTokenSilently();
+      const requestOptions = {
+         method: "DELETE",
+         headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+         },
+      };
+
+      const updateResponse = await fetch(url, requestOptions);
+
+      if (!updateResponse.ok) {
+         throw new Error("Something went wrong!");
+      }
+
+      setBooks(prev => prev.filter(book => book.id !== bookId));
+   };
 
    if (isLoading || httpError) {
       return (
@@ -61,6 +84,7 @@ const ChangeQuantityOfBooks: FC = () => {
                         <ChangeQuantityOfBook
                            book={book}
                            key={book.id}
+                           onDelete={(bookId) => deleteBook(bookId)}
                         />
                      ))}
                   </Col>

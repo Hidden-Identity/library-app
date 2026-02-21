@@ -25,7 +25,6 @@ interface IReturn {
    submitNewBook: () => Promise<void>;
    increaseQuantity: () => Promise<void>;
    decreaseQuantity: () => Promise<void>;
-   deleteBook: () => Promise<void>;
    quantity: number;
    remaining: number;
 }
@@ -164,26 +163,6 @@ const useManageBooks = (book?: IBookModel): IReturn => {
       setRemaining(remaining - 1);
    };
 
-   const deleteBook = async () => {
-      const url = `http://localhost:8080/api/admin/secure/delete/book?bookId=${book?.id}`;
-      const accessToken = await getAccessTokenSilently();
-      const requestOptions = {
-         method: "DELETE",
-         headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Content-Type": "application/json",
-         },
-      };
-
-      const updateResponse = await fetch(url, requestOptions);
-
-      if (!updateResponse.ok) {
-         throw new Error("Something went wrong!");
-      }
-
-      deleteBook();
-   };
-
    return {
       title,
       setTitle,
@@ -201,7 +180,6 @@ const useManageBooks = (book?: IBookModel): IReturn => {
       submitNewBook,
       increaseQuantity,
       decreaseQuantity,
-      deleteBook,
       quantity,
       remaining
    };

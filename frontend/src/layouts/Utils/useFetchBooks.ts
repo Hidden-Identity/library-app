@@ -22,6 +22,7 @@ interface IProps {
 
 interface IReturn {
    books: IBookModel[];
+   setBooks: Dispatch<SetStateAction<IBookModel[]>>;
    bookId: string;
    isLoading: boolean;
    currentPage: number;
@@ -251,6 +252,7 @@ const useFetchBooks = ({
 
    return {
       books,
+      setBooks,
       bookId,
       isLoading,
       currentPage,

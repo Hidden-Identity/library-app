@@ -11,13 +11,14 @@ import { useManageBooks } from "../../Utils/useManageBooks";
 import { useTranslation } from "react-i18next";
 
 interface IProps {
-   book: IBookModel
+   book: IBookModel;
+   onDelete: (bookId: number) => void;
 }
 
-const ChangeQuantityOfBook: FC<IProps> = ({ book }) => {
+const ChangeQuantityOfBook: FC<IProps> = ({ book, onDelete }) => {
    const { t } = useTranslation();
 
-   const { quantity, remaining, deleteBook, increaseQuantity, decreaseQuantity } = useManageBooks(book);
+   const { quantity, remaining, increaseQuantity, decreaseQuantity } = useManageBooks(book);
 
    return (
       <Card className="mt-3 shadow mb-3 bg-body rounded p-3">
@@ -51,7 +52,7 @@ const ChangeQuantityOfBook: FC<IProps> = ({ book }) => {
                <Button
                   variant="danger"
                   size="sm"
-                  onClick={deleteBook}
+                  onClick={() => onDelete(book.id)}
                >
                   {t('delete')}
                </Button>
