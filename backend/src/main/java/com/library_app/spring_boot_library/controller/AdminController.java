@@ -35,6 +35,46 @@ public class AdminController {
         if (admin == null || !admin.equals("admin")) {
             throw new Exception("Administration page only");
         }
+
         adminService.postBook(addBookRequest);
+    }
+
+    @PutMapping("/secure/increase/book/quantity")
+    public void increaseBookQuantity(@AuthenticationPrincipal Jwt jwt,
+                                     @RequestParam Long bookId) throws Exception {
+        List<String> roles = jwt.getClaimAsStringList("https://library-app.com/roles");
+        String admin = roles != null && !roles.isEmpty() ? roles.get(0) : null;
+
+        if (admin == null || !admin.equals("admin")) {
+            throw new Exception("Administration page only");
+        }
+
+        adminService.increaseBookQuantity(bookId);
+    }
+
+    @PutMapping("/secure/decrease/book/quantity")
+    public void decreaseBookQuantity(@AuthenticationPrincipal Jwt jwt,
+                                     @RequestParam Long bookId) throws Exception {
+        List<String> roles = jwt.getClaimAsStringList("https://library-app.com/roles");
+        String admin = roles != null && !roles.isEmpty() ? roles.get(0) : null;
+
+        if (admin == null || !admin.equals("admin")) {
+            throw new Exception("Administration page only");
+        }
+
+        adminService.decreaseBookQuantity(bookId);
+    }
+
+    @DeleteMapping("/secure/delete/book")
+    public void deleteBook(@AuthenticationPrincipal Jwt jwt,
+                           @RequestParam Long bookId) throws Exception {
+        List<String> roles = jwt.getClaimAsStringList("https://library-app.com/roles");
+        String admin = roles != null && !roles.isEmpty() ? roles.get(0) : null;
+
+        if (admin == null || !admin.equals("admin")) {
+            throw new Exception("Administration page only");
+        }
+
+        adminService.deleteBook(bookId);
     }
 }
