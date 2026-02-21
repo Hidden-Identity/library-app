@@ -46,6 +46,9 @@ const AppNavbar: FC = () => {
             {isAuthenticated && (
               <Nav.Link as={NavLink} to="/shelf">{t('shelf')}</Nav.Link>
             )}
+            {isAuthenticated && roles?.includes('admin') &&
+              <Nav.Link as={NavLink} to="/admin">{t('admin')}</Nav.Link>
+            }
           </Nav>
           <Nav className="ms-auto">
             <Nav.Item className="m-1">
