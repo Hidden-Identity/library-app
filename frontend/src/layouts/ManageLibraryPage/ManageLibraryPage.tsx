@@ -10,6 +10,7 @@ import { useRoles } from "../Utils/useRoles";
 import { Redirect } from "react-router-dom";
 import { AdminMessages } from "./components/AdminMessages";
 import { AddNewBook } from "./components/AddNewBook";
+import { ChangeQuantityOfBooks } from "./components/ChangeQuantityOfBooks";
 
 const ManageLibraryPage: FC = () => {
    const { t } = useTranslation();
@@ -41,6 +42,7 @@ const ManageLibraryPage: FC = () => {
                <AddNewBook />
             </Tab>
             <Tab eventKey="quantity" title={t('change_quantity')} unmountOnExit>
+               <ChangeQuantityOfBooks />
             </Tab>
             <Tab eventKey="messages" title={t('messages')} unmountOnExit>
                <AdminMessages />

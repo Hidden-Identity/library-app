@@ -94,5 +94,11 @@
   "book_add_success": "Book added successfully",
   "author": "Author",
   "upload_img": "Upload Image",
-  "add": "Add"
+  "add": "Add",
+  "add_book_to_change_quantity": "Add a book before changing quantity",
+  "total_quantity": "Total Quantity",
+  "books_remaining": "Books Remaining",
+  "delete": "Delete",
+  "add_quantity": "Add Quantity",
+  "decrease_quantity": "Decrease Quantity"
 }

@@ -94,5 +94,11 @@
   "book_add_success": "Uspješno ste dodali knjigu",
   "author": "Autor",
   "upload_img": "Učitajte sliku",
-  "add": "Dodajte"
+  "add": "Dodajte",
+  "add_book_to_change_quantity": "Dodajte knjigu prije promjene količine",
+  "total_quantity": "Ukupna količina",
+  "books_remaining": "Preostalo knjiga",
+  "delete": "Obrišite",
+  "add_quantity": "Povećajte količinu",
+  "decrease_quantity": "Smanjite količinu"
 }

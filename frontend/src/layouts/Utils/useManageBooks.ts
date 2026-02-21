@@ -3,9 +3,10 @@
  * @date 15/02/2026
  */
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import AddBookRequest from "../../models/AddBookRequest";
+import { IBookModel } from "../../models/BookModel";
 
 interface IReturn {
    title: string;
@@ -22,9 +23,14 @@ interface IReturn {
    displaySuccess: boolean;
    handleImageUpload: (file: File) => void;
    submitNewBook: () => Promise<void>;
+   increaseQuantity: () => Promise<void>;
+   decreaseQuantity: () => Promise<void>;
+   deleteBook: () => Promise<void>;
+   quantity: number;
+   remaining: number;
 }
 
-const useManageBooks = (): IReturn => {
+const useManageBooks = (book?: IBookModel): IReturn => {
    const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
    const [title, setTitle] = useState("");
@@ -35,6 +41,23 @@ const useManageBooks = (): IReturn => {
    const [selectedImage, setSelectedImage] = useState<any>(null);
    const [displayWarning, setDisplayWarning] = useState(false);
    const [displaySuccess, setDisplaySuccess] = useState(false);
+
+   const [quantity, setQuantity] = useState<number>(0);
+   const [remaining, setRemaining] = useState<number>(0);
+
+   useEffect(() => {
+      if (!book) {
+         return;
+      }
+
+      const fetchBookInState = () => {
+         book.copies ? setQuantity(book.copies) : setQuantity(0);
+         book.copiesAvailable
+            ? setRemaining(book.copiesAvailable)
+            : setRemaining(0);
+      };
+      fetchBookInState();
+   }, [book]);
 
    const handleImageUpload = (file: File) => {
       const reader = new FileReader();
@@ -99,6 +122,68 @@ const useManageBooks = (): IReturn => {
       }
    };
 
+   const increaseQuantity = async () => {
+      const url = `http://localhost:8080/api/admin/secure/increase/book/quantity?bookId=${book?.id}`;
+      const accessToken = await getAccessTokenSilently();
+      const requestOptions = {
+         method: "PUT",
+         headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+         },
+      };
+
+      const quantityUpdateResponse = await fetch(url, requestOptions);
+
+      if (!quantityUpdateResponse.ok) {
+         throw new Error("Something went wrong!");
+      }
+
+      setQuantity(quantity + 1);
+      setRemaining(remaining + 1);
+   };
+
+   const decreaseQuantity = async () => {
+      const url = `http://localhost:8080/api/admin/secure/decrease/book/quantity?bookId=${book?.id}`;
+      const accessToken = await getAccessTokenSilently();
+      const requestOptions = {
+         method: "PUT",
+         headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+         },
+      };
+
+      const quantityUpdateResponse = await fetch(url, requestOptions);
+
+      if (!quantityUpdateResponse.ok) {
+         throw new Error("Something went wrong!");
+      }
+
+      setQuantity(quantity - 1);
+      setRemaining(remaining - 1);
+   };
+
+   const deleteBook = async () => {
+      const url = `http://localhost:8080/api/admin/secure/delete/book?bookId=${book?.id}`;
+      const accessToken = await getAccessTokenSilently();
+      const requestOptions = {
+         method: "DELETE",
+         headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+         },
+      };
+
+      const updateResponse = await fetch(url, requestOptions);
+
+      if (!updateResponse.ok) {
+         throw new Error("Something went wrong!");
+      }
+
+      deleteBook();
+   };
+
    return {
       title,
       setTitle,
@@ -113,7 +198,12 @@ const useManageBooks = (): IReturn => {
       displayWarning,
       displaySuccess,
       handleImageUpload,
-      submitNewBook
+      submitNewBook,
+      increaseQuantity,
+      decreaseQuantity,
+      deleteBook,
+      quantity,
+      remaining
    };
 };
 
