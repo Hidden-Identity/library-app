@@ -73,7 +73,7 @@ const useManageBooks = (book?: IBookModel): IReturn => {
    };
 
    const submitNewBook = async () => {
-      const url = `http://localhost:8080/api/admin/secure/add/book`;
+      const url = `${process.env.REACT_APP_API}/admin/secure/add/book`;
       const accessToken = await getAccessTokenSilently();
 
       if (
@@ -122,7 +122,7 @@ const useManageBooks = (book?: IBookModel): IReturn => {
    };
 
    const increaseQuantity = async () => {
-      const url = `http://localhost:8080/api/admin/secure/increase/book/quantity?bookId=${book?.id}`;
+      const url = `${process.env.REACT_APP_API}/admin/secure/increase/book/quantity?bookId=${book?.id}`;
       const accessToken = await getAccessTokenSilently();
       const requestOptions = {
          method: "PUT",
@@ -143,7 +143,7 @@ const useManageBooks = (book?: IBookModel): IReturn => {
    };
 
    const decreaseQuantity = async () => {
-      const url = `http://localhost:8080/api/admin/secure/decrease/book/quantity?bookId=${book?.id}`;
+      const url = `${process.env.REACT_APP_API}/admin/secure/decrease/book/quantity?bookId=${book?.id}`;
       const accessToken = await getAccessTokenSilently();
       const requestOptions = {
          method: "PUT",

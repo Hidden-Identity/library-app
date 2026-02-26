@@ -35,7 +35,7 @@ const ChangeQuantityOfBooks: FC = () => {
       : totalAmountOfBooks;
 
    const deleteBook = async (bookId: number) => {
-      const url = `http://localhost:8080/api/admin/secure/delete/book?bookId=${bookId}`;
+      const url = `${process.env.REACT_APP_API}/admin/secure/delete/book?bookId=${bookId}`;
       const accessToken = await getAccessTokenSilently();
       const requestOptions = {
          method: "DELETE",

@@ -49,7 +49,7 @@ const useFetchReviews = ({
 
    useEffect(() => {
       const fetchBookReviews = async () => {
-         const baseUrl = `http://localhost:8080/api/reviews/search/findByBookId?bookId=${bookId}`;
+         const baseUrl = `${process.env.REACT_APP_API}/reviews/search/findByBookId?bookId=${bookId}`;
          let url = baseUrl;
 
          if (usePagination) {
@@ -111,7 +111,7 @@ const useFetchReviews = ({
       const fetchUserReviewBook = async () => {
          if (isAuthenticated) {
                const accessToken = await getAccessTokenSilently();
-               const url = `http://localhost:8080/api/reviews/secure/user/book?bookId=${bookId}`;
+               const url = `${process.env.REACT_APP_API}/reviews/secure/user/book?bookId=${bookId}`;
                const requestOptions = {
                   method: 'GET',
                   headers: {
@@ -140,7 +140,7 @@ const useFetchReviews = ({
 
    const submitReview = async (rating: number, description: string) => { 
       const reviewRequestModel = new ReviewRequestModel(rating, Number(bookId), description);
-      const url = `http://localhost:8080/api/reviews/secure`;
+      const url = `${process.env.REACT_APP_API}/reviews/secure`;
       const accessToken = await getAccessTokenSilently();
       const requestOptions = {
          method: 'POST',

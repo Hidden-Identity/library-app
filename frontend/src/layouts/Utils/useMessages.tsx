@@ -45,7 +45,7 @@ const useMessages = ({
          if (isAuthenticated) {
             const accessToken = await getAccessTokenSilently();
             const endpointParams = isAdminPage ? 'findByClosed?closed=false' : `findByUserEmail?userEmail=${user?.email}`;
-            const url = `http://localhost:8080/api/messages/search/${endpointParams}&page=${currentPage - 1}&size=${messagesPerPage}`;
+            const url = `${process.env.REACT_APP_API}/messages/search/${endpointParams}&page=${currentPage - 1}&size=${messagesPerPage}`;
             const requestOptions = {
                method: 'GET',
                headers: {
@@ -80,7 +80,7 @@ const useMessages = ({
    const paginate = (pageNumber: number) => setCurrentPage(pageNumber);
 
    const submitResponseToQuestion = async (id: number, response: string) => {
-      const url = `http://localhost:8080/api/messages/secure/admin/message`;
+      const url = `${process.env.REACT_APP_API}/messages/secure/admin/message`;
       const accessToken = await getAccessTokenSilently();
 
       if (isAuthenticated && id !== null && response !== '') {

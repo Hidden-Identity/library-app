@@ -19,7 +19,7 @@ const PostNewMessage: FC = () => {
    const [displaySuccess, setDisplaySuccess] = useState(false);
 
    const submitNewQuestion = async () => {
-      const url = `http://localhost:8080/api/messages/secure/add/message`;
+      const url = `${process.env.REACT_APP_API}/messages/secure/add/message`;
       const accessToken = await getAccessTokenSilently();
 
       if (isAuthenticated && title !== '' && question !== '') {

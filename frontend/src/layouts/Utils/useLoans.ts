@@ -29,7 +29,7 @@ const useLoans = ({ setHttpError }: IProps): IReturn => {
       const fetchUserCurrentLoans = async () => {
          if (isAuthenticated) {
             const accessToken = await getAccessTokenSilently();
-            const url = `http://localhost:8080/api/books/secure/currentloans`;
+            const url = `${process.env.REACT_APP_API}/books/secure/currentloans`;
             const requestOptions = {
                method: "GET",
                headers: {
@@ -76,11 +76,11 @@ const useLoans = ({ setHttpError }: IProps): IReturn => {
    };
 
    const returnBook = async (bookId: number) => {
-      performLoansAction(`http://localhost:8080/api/books/secure/return?bookId=${bookId}`);
+      performLoansAction(`${process.env.REACT_APP_API}/books/secure/return?bookId=${bookId}`);
    };
 
    const renewLoan = async (bookId: number) => {
-      performLoansAction(`http://localhost:8080/api/books/secure/renew/loan?bookId=${bookId}`);
+      performLoansAction(`${process.env.REACT_APP_API}/books/secure/renew/loan?bookId=${bookId}`);
    };
 
    return { shelfCurrentLoans, isLoadingUserLoans, returnBook, renewLoan };

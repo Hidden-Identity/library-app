@@ -70,7 +70,7 @@ const useFetchBooks = ({
 
    useEffect(() => {
       const fetchBooks = async () => {
-         const baseUrl = "http://localhost:8080/api/books";
+         const baseUrl = `${process.env.REACT_APP_API}/books`;
          let url = "";
 
          if (fetchOne) {
@@ -144,7 +144,7 @@ const useFetchBooks = ({
       const fetchUserCurrentLoansCount = async () => {
          if (isAuthenticated) {
             const accessToken = await getAccessTokenSilently();
-            const url = `http://localhost:8080/api/books/secure/currentloans/count`;
+            const url = `${process.env.REACT_APP_API}/books/secure/currentloans/count`;
             const requestOptions = {
                method: "GET",
                headers: {
@@ -176,7 +176,7 @@ const useFetchBooks = ({
       const fetchUserCheckedOutBook = async () => {
          if (isAuthenticated) {
             const accessToken = await getAccessTokenSilently();
-            const url = `http://localhost:8080/api/books/secure/ischeckedout/byuser?bookId=${bookId}`;
+            const url = `${process.env.REACT_APP_API}/books/secure/ischeckedout/byuser?bookId=${bookId}`;
             const requestOptions = {
                method: "GET",
                headers: {
@@ -235,7 +235,7 @@ const useFetchBooks = ({
 
    async function checkoutBook() {
       const accessToken = await getAccessTokenSilently();
-      const url = `http://localhost:8080/api/books/secure/checkout?bookId=${books[0]?.id}`;
+      const url = `${process.env.REACT_APP_API}/books/secure/checkout?bookId=${books[0]?.id}`;
       const requestOptions = {
          method: "PUT",
          headers: {
